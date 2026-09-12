@@ -1,121 +1,120 @@
-
 export function renderModal(container) {
-  container.innerHTML = `
-    <div
-      class="modal"
-      id="modal"
-      aria-hidden="true"
+container.innerHTML = `
+<div class="modal" aria-hidden="true" >
+
+  <div class="modal-overlay"></div>
+
+  <div class="modal-content">
+
+    <button
+      class="modal-close"
+      id="modalClose"
+      aria-label="닫기"
     >
+      ×
+    </button>
 
-      <div class="modal-overlay"></div>
+    <h2>
+      실행 약속 만들기
+    </h2>
 
-      <div class="modal-content">
+    <p>
+      실제 MVP에서는 이 데이터를 저장하고
+      실행 시간에 사용자를 다시 호출합니다.
+    </p>
 
-        <button
-          class="modal-close"
-          id="modalClose"
-          aria-label="닫기"
-        >
-          ×
-        </button>
+    <form id="taskForm">
 
-        <h2>
-          실행 약속 만들기
-        </h2>
+      <label>
+        무엇을 할까요?
 
-        <p>
-          실제 MVP에서는 이 데이터를 저장하고
-          실행 시간에 사용자를 다시 호출합니다.
-        </p>
+        <input
+          type="text"
+          id="taskName"
+          placeholder="예: 영어 공부"
+          required
+        />
+      </label>
 
-        <form id="taskForm">
+      <label>
+        언제 할까요?
 
-          <label>
-            무엇을 할까요?
+        <input
+          type="datetime-local"
+          id="taskTime"
+          required
+        />
+      </label>
 
-            <input
-              type="text"
-              id="taskName"
-              placeholder="예: 영어 공부"
-              required
-            />
-          </label>
+      <label>
+        압박 수준
 
-          <label>
-            언제 할까요?
+        <select id="pressure">
 
-            <input
-              type="datetime-local"
-              id="taskTime"
-              required
-            />
-          </label>
+          <option value="low">
+            Level 1 · 부드럽게
+          </option>
 
-          <label>
-            압박 수준
+          <option value="medium">
+            Level 2 · 사회적 압박
+          </option>
 
-            <select id="pressure">
+          <option value="high">
+            Level 3 · 강하게
+          </option>
 
-              <option value="low">
-                Level 1 · 부드럽게
-              </option>
+        </select>
+      </label>
 
-              <option value="medium">
-                Level 2 · 사회적 압박
-              </option>
+      <button
+        class="primary-button"
+        type="submit"
+      >
+        실행 약속 저장
+      </button>
 
-              <option value="high">
-                Level 3 · 강하게
-              </option>
+    </form>
 
-            </select>
-          </label>
+  </div>
 
-          <button
-            class="primary-button"
-            type="submit"
-          >
-            실행 약속 저장
-          </button>
+</div>
 
-        </form>
 
-      </div>
+`;
 
-    </div>
-  `;
-
-  setupModal();
+setupModal();
 }
 
 function setupModal() {
-  const modal = document.querySelector("#modal");
-  const closeButton = document.querySelector("#modalClose");
-  const overlay = document.querySelector(".modal-overlay");
-  const form = document.querySelector("#taskForm");
+const modal = document.querySelector("#modal");
+const closeButton = document.querySelector("#modalClose");
+const overlay = document.querySelector(".modal-overlay");
+const form = document.querySelector("#taskForm");
 
-  const closeModal = () => {
-    modal.classList.remove("open");
-    modal.setAttribute("aria-hidden", "true");
-  };
+const closeModal = () => {
+modal.classList.remove("open");
+modal.setAttribute("aria-hidden", "true");
+};
 
-  closeButton.addEventListener("click", closeModal);
-  overlay.addEventListener("click", closeModal);
+closeButton.addEventListener("click", closeModal);
+overlay.addEventListener("click", closeModal);
 
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
+form.addEventListener("submit", (event) => {
+event.preventDefault();
 
-    const task = {
-      name: document.querySelector("#taskName").value,
-      time: document.querySelector("#taskTime").value,
-      pressure: document.querySelector("#pressure").value
-    };
+const task = {
+  name: document.querySelector("#taskName").value,
+  time: document.querySelector("#taskTime").value,
+  pressure: document.querySelector("#pressure").value
+};
 
-    console.log("실행 약속:", task);
+console.log("실행 약속:", task);
 
-    alert("실행 약속이 저장되었습니다.");
+alert("실행 약속이 저장되었습니다.");
 
-    form.reset();
-    closeModal();
-  });
+form.reset();
+closeModal();
+
+
+});
 }
